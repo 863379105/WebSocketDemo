@@ -34,9 +34,16 @@
             socket.on('messageData',(msgData) => {
                 //将数据渲染在页面中
                 let li = document.createElement('li')
-                li.innerHTML = `
-                    ${msgData.userId} 说 ${msgData.message}
-                `
+                console.log(socket.id);
+                if(socket.id === msgData.userId){
+                    li.innerHTML = `
+                        ${msgData.userId}（自己） 说 “ ${msgData.message} ”
+                    `
+                }else{
+                    li.innerHTML = `
+                        ${msgData.userId} 说 “ ${msgData.message} ”
+                    `
+                }
                 messageList.append(li)
             })         
         }
