@@ -19,8 +19,30 @@ router.get('/',async ctx => {
 })
 app.use(router.routes())
 
-io.on('connection',() => {
-    console.log('a user connected');
+/* 通过 io.on() 监听 connection 事件，当客户端建立连接时，进入该函数,
+   并提供一个socket对象，该对象可以理解为每一次的连接都会创建一个socket对象，
+   双向通信都是通过socket对象来完成的 */
+io.on('connection',(socket) => {
+    console.log(`${socket.id} connected`);
+    
+    // 连接成功向前端发送建立连接的客户端id,socket对象中自带客户端id属性
+    // 通过socket.emit()发送数据
+    // https://socket.io/docs/client-api/#socket-emit-eventName-%E2%80%A6args-ack
+    socket.emit('user',socket.id)
+
+    //监听message事件
+    socket.on('message',(msg) => {
+        let msgData = {
+            userId : socket.id,
+            message : msg
+        }
+        //广播message事件下的内容,通过新创建的messageData事件广播
+        //socket.broadcast.emit()方法会将数据发送给除自己以外的所有客户端
+        //如果同时也需要将数据发送给自己，需要通过socket.emit()发送数据
+        socket.broadcast.emit('messageData',msgData)
+        socket.emit('messageData',msgData)
+    })
+
 })
 
 //监听服务端口

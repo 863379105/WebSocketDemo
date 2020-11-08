@@ -7,7 +7,57 @@
 </head>
 <body>
     <button id="connect-btn">连接服务</button>
-    <input type="text">
+    <input type="text" id="message">
     <button id="send-btn">发送消息</button>
+    <ul></ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
+    <!--  在客户端 socket.io 官网提供了两种方式引入socket.io的模块 -->
+    <script>
+        let connectBtn = document.querySelector('#connect-btn')
+        let sendBtn = document.querySelector('#send-btn')
+        let messageElement = document.querySelector('#message')
+        let messageList = document.querySelector('ul')
+
+        let socket = null
+        connectBtn.onclick = function(){
+            socket = io() //通过socket.io的内置函数 io() 建立链接
+            console.log('连接成功');
+            // 通过socket.on监听事件
+            // https://socket.io/docs/client-api/#socket-emit-eventName-%E2%80%A6args-ack
+            socket.on('user', (data) => {
+                //通过回调，获取事件user发送的数据
+                this.innerHTML = data
+                this.disabled = true
+            })
+            //监听messageData事件
+            socket.on('messageData',(msgData) => {
+                //将数据渲染在页面中
+                let li = document.createElement('li')
+                li.innerHTML = `
+                    ${msgData.userId} 说 ${msgData.message}
+                `
+                messageList.append(li)
+            })         
+        }
+        //通过点击发送消息按钮发送消息，使得所有在线客户端都能查看到消息
+        sendBtn.onclick = function(){
+            //简单的判断一下输入是否为空
+            if(messageElement.value === ''){
+                alert('请输入内容')
+                return
+            }
+            //判断一下是否连接服务器
+            if(!socket){
+                alert('请连接服务')
+                messageElement.value = ''
+                return
+            }
+            //创建message事件，并向后端发送数据
+            socket.emit('message',messageElement.value)
+            messageElement.value = ''
+            messageElement.focus()
+        }
+    </script>
 </body>
 </html>
