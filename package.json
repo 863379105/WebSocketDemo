@@ -1,0 +1,25 @@
+{
+  "name": "websocket",
+  "version": "1.0.0",
+  "description": "A simple ChatRoom for learning WebSocket",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/863379105/WebSocketDemo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/863379105/WebSocketDemo/issues"
+  },
+  "homepage": "https://github.com/863379105/WebSocketDemo#readme",
+  "dependencies": {
+    "koa": "^2.13.0",
+    "nodemon": "^2.0.6",
+    "socket.io": "^3.0.0"
+  }
+}
