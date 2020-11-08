@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/863379105/WebSocketDemo#readme",
   "dependencies": {
+    "@koa/router": "^10.0.0",
     "koa": "^2.13.0",
+    "koa-static-cache": "^5.1.4",
     "nodemon": "^2.0.6",
     "socket.io": "^3.0.0"
   }
