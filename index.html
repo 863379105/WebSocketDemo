@@ -37,11 +37,11 @@
                 console.log(socket.id);
                 if(socket.id === msgData.userId){
                     li.innerHTML = `
-                        ${msgData.userId}（自己） 说 “ ${msgData.message} ”
+                        ${msgData.userId}（自己） 说 “ ${msgData.message} ”      ---（${msgData.timestamp}）
                     `
                 }else{
                     li.innerHTML = `
-                        ${msgData.userId} 说 “ ${msgData.message} ”
+                        ${msgData.userId} 说 “ ${msgData.message} ”      ---（${msgData.timestamp}）
                     `
                 }
                 messageList.append(li)

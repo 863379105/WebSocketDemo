@@ -34,7 +34,8 @@ io.on('connection',(socket) => {
     socket.on('message',(msg) => {
         let msgData = {
             userId : socket.id,
-            message : msg
+            message : msg,
+            timestamp : getTime()
         }
         //广播message事件下的内容,通过新创建的messageData事件广播
         //socket.broadcast.emit()方法会将数据发送给除自己以外的所有客户端
@@ -49,3 +50,13 @@ io.on('connection',(socket) => {
 server.listen(8888,() => {
     console.log('success');
 })
+//获取时间函数
+function getTime(){
+    let year = new Date().getFullYear()
+    let month = new Date().getMonth()
+    let day =  new Date().getDate()
+    let hour = new Date().getHours()
+    let minute = new Date().getMinutes()
+    let second = new Date().getSeconds()
+    return `${year}-${month + 1}-${day} ${hour}:${minute}:${second}`
+}
