@@ -1,3 +1,5 @@
+
+/* 暗号暗号：实时通信 */
 //引入模块
 const Koa = require('koa')
 const Router = require('@koa/router')
@@ -59,4 +61,4 @@ function getTime(){
     let minute = new Date().getMinutes()
     let second = new Date().getSeconds()
     return `${year}-${month + 1}-${day} ${hour}:${minute}:${second}`
-}
+} 
